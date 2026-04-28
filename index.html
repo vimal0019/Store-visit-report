@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Store Visit Report | Vellore Region</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pptxgenjs/3.12.0/pptxgen.bundle.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0D1B2A; --blue: #1565C0; --accent: #00B4D8;
+    --gold: #FFB300; --red: #E53935; --card: #1a2332;
+    --border: #1e3a5f; --text: #E8EDF5; --muted: #8899AA;
+    --success: #00C896;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'DM Sans',sans-serif; background:var(--navy); color:var(--text); min-height:100vh;
+    background-image: radial-gradient(ellipse at 20% 0%,rgba(21,101,192,.18) 0%,transparent 60%),
+                      radial-gradient(ellipse at 80% 100%,rgba(0,180,216,.10) 0%,transparent 50%);
+  }
+  header {
+    background:linear-gradient(135deg,#0a1628,#1a2d50);
+    border-bottom:2px solid var(--accent); padding:0 40px;
+    position:sticky; top:0; z-index:100; box-shadow:0 4px 30px rgba(0,180,216,.15);
+  }
+  .header-inner {
+    max-width:1100px; margin:0 auto; display:flex;
+    align-items:center; justify-content:space-between; height:64px;
+  }
+  .logo { display:flex; align-items:center; gap:12px; }
+  .logo-icon {
+    width:36px; height:36px; border-radius:8px;
+    background:linear-gradient(135deg,var(--blue),var(--accent));
+    display:flex; align-items:center; justify-content:center; font-size:18px;
+  }
+  .logo-text { font-family:'Rajdhani',sans-serif; font-size:20px; font-weight:700; letter-spacing:1px; }
+  .logo-sub { font-size:11px; color:var(--accent); letter-spacing:2px; text-transform:uppercase; }
+  .header-badge {
+    background:rgba(0,180,216,.12); border:1px solid rgba(0,180,216,.3);
+    padding:6px 14px; border-radius:20px; font-size:12px; color:var(--accent); letter-spacing:1px;
+  }
+  main { max-width:1100px; margin:0 auto; padding:40px 20px 80px; }
+
+  /* STEPS */
+  .steps {
+    display:flex; margin-bottom:16px; background:var(--card);
+    border-radius:12px; overflow:hidden; border:1px solid var(--border);
+  }
+  .step {
+    flex:1; padding:14px 16px; display:flex; align-items:center; gap:10px;
+    border-right:1px solid var(--border); cursor:pointer; font-size:13px; color:var(--muted);
+  }
+  .step:last-child { border-right:none; }
+  .step.active { background:rgba(21,101,192,.2); color:var(--accent); }
+  .step.done   { background:rgba(0,200,150,.08); color:var(--success); }
+  .step-num {
+    width:26px; height:26px; border-radius:50%; background:var(--border); color:var(--muted);
+    display:flex; align-items:center; justify-content:center;
+    font-size:12px; font-weight:700; flex-shrink:0; font-family:'Rajdhani',sans-serif;
+  }
+  .step.active .step-num { background:var(--accent); color:#fff; }
+  .step.done   .step-num { background:var(--success); color:#fff; }
+
+  .progress-bar-wrap { background:var(--border); border-radius:4px; height:4px; margin-bottom:36px; }
+  .progress-bar { height:4px; border-radius:4px; background:linear-gradient(90deg,var(--blue),var(--accent)); transition:width .4s ease; }
+
+  /* SECTION */
+  .section { display:none; }
+  .section.active { display:block; animation:fadeIn .3s ease; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+  .section-title { font-family:'Rajdhani',sans-serif; font-size:28px; font-weight:700; margin-bottom:6px; }
+  .section-title span { color:var(--accent); }
+  .section-desc { color:var(--muted); font-size:14px; margin-bottom:28px; }
+
+  /* FORM CARD */
+  .form-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:32px; margin-bottom:24px; }
+  .form-card-title {
+    font-family:'Rajdhani',sans-serif; font-size:15px; font-weight:600; color:var(--accent);
+    letter-spacing:1.5px; text-transform:uppercase; margin-bottom:24px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .form-card-title::before { content:''; display:block; width:4px; height:20px; background:var(--accent); border-radius:2px; }
+
+  .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .form-group { display:flex; flex-direction:column; gap:8px; }
+  .form-group.full { grid-column:1/-1; }
+  label.field-label { font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; font-weight:500; }
+  label.field-label .req { color:var(--gold); margin-left:3px; }
+  input[type=text], input[type=date], select, textarea {
+    background:rgba(255,255,255,.04); border:1px solid var(--border);
+    border-radius:8px; padding:12px 16px; color:var(--text);
+    font-family:'DM Sans',sans-serif; font-size:15px;
+    transition:border-color .2s,box-shadow .2s; outline:none; width:100%;
+  }
+  input[type=text]:focus, input[type=date]:focus, select:focus, textarea:focus {
+    border-color:var(--accent); box-shadow:0 0 0 3px rgba(0,180,216,.12);
+  }
+  input::placeholder { color:#3a4a5a; }
+
+  /* UPLOAD CARDS */
+  .upload-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+
+  .upload-card {
+    background:rgba(255,255,255,.02); border:1.5px dashed var(--border);
+    border-radius:12px; padding:20px 16px; transition:border-color .2s,background .2s;
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+  }
+  .upload-card.has-files { border-color:var(--success); border-style:solid; background:rgba(0,200,150,.04); }
+  .upload-card.error    { border-color:var(--red) !important; }
+
+  .upload-icon { font-size:28px; }
+  .upload-label {
+    font-family:'Rajdhani',sans-serif; font-size:15px; font-weight:600;
+    color:var(--text); text-align:center;
+  }
+  .upload-badge {
+    font-size:10px; background:rgba(255,179,0,.15); color:var(--gold);
+    padding:2px 8px; border-radius:10px; letter-spacing:1px;
+  }
+  .upload-hint { font-size:11px; color:var(--muted); text-align:center; line-height:1.4; }
+
+  /* THE ACTUAL BUTTON — this is the reliable fix */
+  .upload-btn {
+    margin-top:4px; padding:8px 18px; border-radius:6px; cursor:pointer;
+    font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600;
+    background:rgba(0,180,216,.12); border:1px solid rgba(0,180,216,.3);
+    color:var(--accent); transition:all .2s; white-space:nowrap;
+  }
+  .upload-btn:hover { background:rgba(0,180,216,.22); border-color:var(--accent); }
+  .upload-card.has-files .upload-btn { background:rgba(0,200,150,.12); border-color:rgba(0,200,150,.3); color:var(--success); }
+
+  /* hidden real input — NOT covering everything, just zero-size hidden */
+  input[type=file] { display:none; }
+
+  .upload-count { font-size:12px; color:var(--success); font-weight:600; text-align:center; }
+
+  .preview-strip { display:flex; gap:4px; flex-wrap:wrap; justify-content:center; max-width:100%; }
+  .preview-thumb { width:40px; height:40px; border-radius:5px; object-fit:cover; border:1px solid var(--border); }
+  .preview-more { width:40px; height:40px; border-radius:5px; background:rgba(255,255,255,.08); display:flex; align-items:center; justify-content:center; font-size:11px; color:var(--muted); border:1px dashed var(--border); }
+
+  /* BUTTONS */
+  .btn-row { display:flex; gap:12px; justify-content:flex-end; margin-top:28px; }
+  .btn { padding:12px 28px; border-radius:8px; border:none; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:15px; font-weight:600; transition:all .2s; display:flex; align-items:center; gap:8px; }
+  .btn-primary { background:linear-gradient(135deg,var(--blue),var(--accent)); color:#fff; box-shadow:0 4px 20px rgba(0,180,216,.25); }
+  .btn-primary:hover { transform:translateY(-1px); box-shadow:0 6px 28px rgba(0,180,216,.35); }
+  .btn-outline { background:transparent; color:var(--muted); border:1px solid var(--border); }
+  .btn-outline:hover { border-color:var(--accent); color:var(--accent); }
+  .btn-gold { background:linear-gradient(135deg,#E65100,var(--gold)); color:#fff; font-size:16px; padding:14px 36px; box-shadow:0 4px 20px rgba(255,179,0,.3); }
+  .btn-gold:hover { transform:translateY(-2px); box-shadow:0 8px 32px rgba(255,179,0,.45); }
+
+  /* REVIEW */
+  .review-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px; }
+  .review-item { background:rgba(255,255,255,.03); border:1px solid var(--border); border-radius:8px; padding:16px; }
+  .review-item-label { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px; }
+  .review-item-val { font-size:16px; font-weight:600; }
+  .photo-summary { display:flex; flex-direction:column; gap:8px; }
+  .photo-row { display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,.02); border-radius:8px; padding:10px 14px; }
+  .photo-row-count { font-size:13px; font-weight:600; padding:2px 10px; border-radius:20px; }
+  .photo-row-count.ok   { background:rgba(0,200,150,.15); color:var(--success); }
+  .photo-row-count.none { background:rgba(229,57,53,.12); color:var(--red); }
+
+  /* GENERATING */
+  .generating { display:none; flex-direction:column; align-items:center; justify-content:center; padding:60px 20px; text-align:center; }
+  .generating.show { display:flex; }
+  .spinner { width:56px; height:56px; border-radius:50%; border:3px solid var(--border); border-top-color:var(--accent); animation:spin .8s linear infinite; margin-bottom:24px; }
+  @keyframes spin { to{transform:rotate(360deg)} }
+  .gen-label { font-family:'Rajdhani',sans-serif; font-size:22px; margin-bottom:8px; }
+  .gen-sub { font-size:14px; color:var(--muted); }
+
+  /* SUCCESS */
+  .success-box { display:none; background:rgba(0,200,150,.07); border:1.5px solid var(--success); border-radius:16px; padding:40px; text-align:center; margin-top:20px; }
+  .success-box.show { display:block; animation:fadeIn .5s ease; }
+  .success-icon { font-size:52px; margin-bottom:16px; }
+  .success-title { font-family:'Rajdhani',sans-serif; font-size:30px; font-weight:700; color:var(--success); margin-bottom:8px; }
+  .success-desc { color:var(--muted); font-size:15px; margin-bottom:24px; }
+
+  @media(max-width:700px){
+    .form-grid,.upload-grid,.review-grid{grid-template-columns:1fr}
+    .steps{flex-direction:column}
+    .step{border-right:none;border-bottom:1px solid var(--border)}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">📍</div>
+      <div>
+        <div class="logo-text">STORE VISIT REPORT</div>
+        <div class="logo-sub">Vellore Region · Field Documentation</div>
+      </div>
+    </div>
+    <div class="header-badge">MKT-VLR-2026</div>
+  </div>
+</header>
+
+<main>
+  <div class="steps">
+    <div class="step active" id="step1"><div class="step-num">1</div><div><div style="font-weight:600">Store Details</div><div style="font-size:11px">Name, Location, Code</div></div></div>
+    <div class="step" id="step2"><div class="step-num">2</div><div><div style="font-weight:600">Upload Photos</div><div style="font-size:11px">All 7 categories</div></div></div>
+    <div class="step" id="step3"><div class="step-num">3</div><div><div style="font-weight:600">Review & Generate</div><div style="font-size:11px">Auto PPT download</div></div></div>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="progress" style="width:33%"></div></div>
+
+  <!-- STEP 1 -->
+  <div class="section active" id="sec1">
+    <div class="section-title">Store <span>Details</span></div>
+    <div class="section-desc">Enter outlet information. Fields marked * are mandatory.</div>
+    <div class="form-card">
+      <div class="form-card-title">Outlet Information</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="field-label">Store Name <span class="req">*</span></label>
+          <input type="text" id="storeName" placeholder="e.g. Sri Lakshmi Electronics" />
+        </div>
+        <div class="form-group">
+          <label class="field-label">V Work Code <span class="req">*</span></label>
+          <input type="text" id="vWorkCode" placeholder="e.g. VLR-0042" />
+        </div>
+        <div class="form-group">
+          <label class="field-label">Location / Area <span class="req">*</span></label>
+          <input type="text" id="location" placeholder="e.g. Katpadi, Vellore" />
+        </div>
+        <div class="form-group">
+          <label class="field-label">Visit Date <span class="req">*</span></label>
+          <input type="date" id="visitDate" />
+        </div>
+        <div class="form-group">
+          <label class="field-label">TL Name <span class="req">*</span></label>
+          <input type="text" id="tlName" placeholder="Team Leader Name" />
+        </div>
+        <div class="form-group">
+          <label class="field-label">Shop Category</label>
+          <select id="shopCat">
+            <option value="">Select Category</option>
+            <option value="A+">A+ (Premium Flagship)</option>
+            <option value="A">A (High Performer)</option>
+            <option value="B">B (Mid Tier)</option>
+            <option value="C">C (General Trade)</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label class="field-label">Remarks / Observations</label>
+          <textarea id="remarks" rows="3" placeholder="POSM condition, VM gaps, competitor activity..."></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="nextStep(1)">Next: Upload Photos →</button>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="section" id="sec2">
+    <div class="section-title">Upload <span>Photos</span></div>
+    <div class="section-desc">Click "Choose Photos" on each card. ★ Mandatory sections need at least 1 photo for a valid visit.</div>
+
+    <div class="form-card">
+      <div class="form-card-title">Visit Photo Evidence</div>
+      <div class="upload-grid">
+
+        <!-- Each card: hidden input + visible button -->
+        <div class="upload-card" id="card-outshop">
+          <div class="upload-icon">🏪</div>
+          <div class="upload-label">Out Shop</div>
+          <div class="upload-badge">★ MANDATORY</div>
+          <div class="upload-hint">Exterior, signage, board visible</div>
+          <input type="file" id="file-outshop" accept="image/*" multiple onchange="handleUpload('outshop')" />
+          <button class="upload-btn" onclick="document.getElementById('file-outshop').click()">📂 Choose Photos</button>
+          <div class="upload-count" id="cnt-outshop"></div>
+          <div class="preview-strip" id="prev-outshop"></div>
+        </div>
+
+        <div class="upload-card" id="card-inshop">
+          <div class="upload-icon">🏬</div>
+          <div class="upload-label">In Shop</div>
+          <div class="upload-badge">★ MANDATORY</div>
+          <div class="upload-hint">Interior, customer area, counter</div>
+          <input type="file" id="file-inshop" accept="image/*" multiple onchange="handleUpload('inshop')" />
+          <button class="upload-btn" onclick="document.getElementById('file-inshop').click()">📂 Choose Photos</button>
+          <div class="upload-count" id="cnt-inshop"></div>
+          <div class="preview-strip" id="prev-inshop"></div>
+        </div>
+
+        <div class="upload-card" id="card-material">
+          <div class="upload-icon">📦</div>
+          <div class="upload-label">Material View</div>
+          <div class="upload-badge">★ MANDATORY</div>
+          <div class="upload-hint">POSM, banners, demo materials</div>
+          <input type="file" id="file-material" accept="image/*" multiple onchange="handleUpload('material')" />
+          <button class="upload-btn" onclick="document.getElementById('file-material').click()">📂 Choose Photos</button>
+          <div class="upload-count" id="cnt-material"></div>
+          <div class="preview-strip" id="prev-material"></div>
+        </div>
+
+        <div class="upload-card" id="card-shelf">
+          <div class="upload-icon">🗄️</div>
+          <div class="upload-label">Self / Rack View</div>
+          <div class="upload-badge">★ MANDATORY</div>
+          <div class="upload-hint">Planogram, VM, shelf arrangement</div>
+          <input type="file" id="file-shelf" accept="image/*" multiple onchange="handleUpload('shelf')" />
+          <button class="upload-btn" onclick="document.getElementById('file-shelf').click()">📂 Choose Photos</button>
+          <div class="upload-count" id="cnt-shelf"></div>
+          <div class="preview-strip" id="prev-shelf"></div>
+        </div>
+
+        <div class="upload-card" id="card-competitor">
+          <div class="upload-icon">🎯</div>
+          <div class="upload-label">Competitor Images</div>
+          <div class="upload-hint">Competitor display, products, POS</div>
+          <input type="file" id="file-competitor" accept="image/*" multiple onchange="handleUpload('competitor')" />
+          <button class="upload-btn" onclick="document.getElementById('file-competitor').click()">📂 Choose Photos</button>
+          <div class="upload-count" id="cnt-competitor"></div>
+          <div class="preview-strip" id="prev-competitor"></div>
+        </div>
+
+        <div class="upload-card" id="card-others">
+          <div class="upload-icon">📷</div>
+          <div class="upload-label">Others</div>
+          <div class="upload-hint">Any other relevant photos</div>
+          <input type="file" id="file-others" accept="image/*" multiple onchange="handleUpload('others')" />
+          <button class="upload-btn" onclick="document.getElementById('file-others').click()">📂 Choose Photos</button>
+          <div class="upload-count" id="cnt-others"></div>
+          <div class="preview-strip" id="prev-others"></div>
+        </div>
+
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-outline" onclick="setStep(1)">← Back</button>
+      <button class="btn btn-primary" onclick="nextStep(2)">Next: Review & Generate →</button>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="section" id="sec3">
+    <div class="section-title">Review & <span>Generate</span></div>
+    <div class="section-desc">Confirm details then generate your PowerPoint report automatically.</div>
+
+    <div class="form-card" id="reviewContent">
+      <div class="form-card-title">Store Summary</div>
+      <div class="review-grid" id="reviewGrid"></div>
+      <div class="form-card-title" style="margin-top:24px">Photo Upload Summary</div>
+      <div class="photo-summary" id="photoSummary"></div>
+    </div>
+
+    <div class="generating" id="genBox">
+      <div class="spinner"></div>
+      <div class="gen-label">Building PowerPoint...</div>
+      <div class="gen-sub" id="genStatus">Preparing slides...</div>
+    </div>
+
+    <div class="success-box" id="successBox">
+      <div class="success-icon">✅</div>
+      <div class="success-title">PPT Downloaded!</div>
+      <div class="success-desc" id="successDesc"></div>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-gold" onclick="generatePPT()">⬇ Download Again</button>
+        <button class="btn btn-outline" onclick="resetAll()">+ New Visit</button>
+      </div>
+    </div>
+
+    <div class="btn-row" id="genBtnRow">
+      <button class="btn btn-outline" onclick="setStep(2)">← Back</button>
+      <button class="btn btn-gold" onclick="generatePPT()">🎯 Generate PPT Report</button>
+    </div>
+  </div>
+</main>
+
+<script>
+const photos = { outshop:[], inshop:[], material:[], shelf:[], competitor:[], others:[] };
+const catLabels = { outshop:'Out Shop', inshop:'In Shop', material:'Material View', shelf:'Self / Rack View', competitor:'Competitor Images', others:'Others' };
+const mandatory = ['outshop','inshop','material','shelf'];
+
+function setStep(n) {
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getEleme
